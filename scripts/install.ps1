@@ -51,7 +51,6 @@
     # One-liner install directly from GitHub
 #>
 param(
-    [ValidateSet('2023','2024','2025','2026','2027')]
     [string]$RevitVersion,
     [string]$Tag = 'latest',
     [switch]$Uninstall,
@@ -178,6 +177,18 @@ if ($_commonPath -and (Test-Path $_commonPath)) {
             } catch {}
         }
         return $result
+    }
+}
+
+# -- Validate -RevitVersion against $REVIT_YEARS (defined by common.ps1 or the
+#    inline fallback above).  Doing this at runtime keeps the check in sync with
+#    $REVIT_YEARS automatically -- no need to maintain a separate [ValidateSet].
+if ($RevitVersion) {
+    $validYears = $REVIT_YEARS | ForEach-Object { $_.ToString() }
+    if ($RevitVersion -notin $validYears) {
+        Write-Host "  [-] -RevitVersion '$RevitVersion' is not supported." -ForegroundColor Red
+        Write-Host "      Supported values: $($validYears -join ', ')" -ForegroundColor Gray
+        exit 1
     }
 }
 
