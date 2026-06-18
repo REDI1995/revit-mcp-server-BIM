@@ -343,6 +343,15 @@ namespace revit_mcp_plugin.Core
                     object result = command.Execute(request.GetParamsObject(), request.Id);
                     stopwatch.Stop();
 
+                    // Audit log — records every command with its parameters and outcome
+                    Utils.AuditLogger.Log(
+                        command: request.Method,
+                        parameters: request.GetParamsObject(),
+                        success: true,
+                        durationMs: stopwatch.ElapsedMilliseconds,
+                        projectPath: _uiApp?.ActiveUIDocument?.Document?.PathName ?? string.Empty
+                    );
+
                     // Log to dockable panel
                     try
                     {
@@ -356,6 +365,16 @@ namespace revit_mcp_plugin.Core
                 catch (Exception ex)
                 {
                     McpLogger.Error("SocketService", $"Command '{request.Method}' failed", ex);
+
+                    // Audit log — records the failure too
+                    Utils.AuditLogger.Log(
+                        command: request.Method,
+                        parameters: request.GetParamsObject(),
+                        success: false,
+                        durationMs: 0,
+                        projectPath: _uiApp?.ActiveUIDocument?.Document?.PathName ?? string.Empty,
+                        errorMessage: ex.Message
+                    );
 
                     // Log error to dockable panel
                     try
