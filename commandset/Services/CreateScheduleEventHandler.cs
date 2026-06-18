@@ -220,6 +220,25 @@ namespace RevitMCPCommandSet.Services
                     }
                 };
             }
+
+            // Inject level filter when levelFilter is set and the schedule has a Level field
+            if (!string.IsNullOrEmpty(ScheduleInfo.LevelFilter) &&
+                ScheduleInfo.Fields != null &&
+                ScheduleInfo.Fields.Any(f => f.ParameterName.Equals("Level", StringComparison.OrdinalIgnoreCase)))
+            {
+                if (ScheduleInfo.Filters == null)
+                    ScheduleInfo.Filters = new List<ScheduleFilterInfo>();
+
+                if (!ScheduleInfo.Filters.Any(f => f.FieldName.Equals("Level", StringComparison.OrdinalIgnoreCase)))
+                {
+                    ScheduleInfo.Filters.Add(new ScheduleFilterInfo
+                    {
+                        FieldName = "Level",
+                        FilterType = "Equal",
+                        FilterValue = ScheduleInfo.LevelFilter
+                    });
+                }
+            }
         }
 
         private List<ScheduleFieldInfo> GetPresetFields(string presetName)
@@ -229,6 +248,7 @@ namespace RevitMCPCommandSet.Services
                 case "room_finish":
                     return new List<ScheduleFieldInfo>
                     {
+                        new ScheduleFieldInfo { ParameterName = "Level" },
                         new ScheduleFieldInfo { ParameterName = "Number" },
                         new ScheduleFieldInfo { ParameterName = "Name" },
                         new ScheduleFieldInfo { ParameterName = "Floor Finish" },

@@ -103,6 +103,12 @@ public class ScheduleCreationInfo
     public string Preset { get; set; } = string.Empty;
 
     /// <summary>
+    ///     Filter rows to a specific level name (e.g. "Level 1"). Supported by room_finish preset.
+    /// </summary>
+    [JsonProperty("levelFilter")]
+    public string LevelFilter { get; set; } = string.Empty;
+
+    /// <summary>
     ///     Whether the schedule is itemized (shows every instance)
     /// </summary>
     [JsonProperty("isItemized")]
