@@ -96,8 +96,40 @@ namespace RevitMCPCommandSet.Commands.ExecuteDynamicCode
             }
         }
 
+        // Namespaces that cannot be used in AI-generated code
+        private static readonly string[] _blockedNamespaces =
+        {
+            "System.IO",
+            "System.Net",
+            "System.Reflection",
+            "System.Diagnostics",
+            "System.Runtime.InteropServices",
+            "Microsoft.Win32",
+            "System.Security",
+            "System.Environment",
+            "System.AppDomain",
+        };
+
+        private static void ValidateCode(string code)
+        {
+            if (string.IsNullOrWhiteSpace(code))
+                throw new ArgumentException("Code cannot be empty.");
+
+            foreach (var ns in _blockedNamespaces)
+            {
+                if (code.Contains(ns))
+                    throw new InvalidOperationException(
+                        $"Code contains blocked namespace '{ns}'. " +
+                        $"Only Autodesk.Revit.DB, Autodesk.Revit.UI, System.Linq, " +
+                        $"System.Collections.Generic, and System are permitted.");
+            }
+        }
+
         private object CompileAndExecuteCode(string code, Document doc, object[] parameters)
         {
+            // Reject code containing dangerous namespaces before Roslyn touches it
+            ValidateCode(code);
+
             // Wrap code with a standardized entry point
             var wrappedCode = $@"
 using System;
