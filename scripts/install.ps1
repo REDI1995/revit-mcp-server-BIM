@@ -592,9 +592,19 @@ function Install-ForVersion {
     $asset     = $Release.assets | Where-Object { $_.name -eq $assetName }
 
     if (-not $asset) {
-        Write-Warn "Revit $year  --  asset '$assetName' not found in release $tag"
-        $avail = ($Release.assets | ForEach-Object { $_.name }) -join ', '
-        if ($avail) { Write-Info "Available assets: $avail" }
+        if ($year -eq 2027) {
+            Write-Warn "Revit 2027  --  no pre-built package in release $tag"
+            Write-Info "Revit 2027 targets .NET 10 (net10.0-windows) and is not yet included"
+            Write-Info "in official releases.  To install for Revit 2027:"
+            Write-Info "  1. Clone the repository and open the solution in Visual Studio"
+            Write-Info "  2. Build with configuration 'Debug R27' or 'Release R27'"
+            Write-Info "  3. Re-run this installer with -LocalZip <path to built output>"
+            Write-Info "  Or check for a newer release: https://github.com/$REPO/releases"
+        } else {
+            Write-Warn "Revit $year  --  asset '$assetName' not found in release $tag"
+            $avail = ($Release.assets | ForEach-Object { $_.name }) -join ', '
+            if ($avail) { Write-Info "Available assets: $avail" }
+        }
         return $false
     }
 
