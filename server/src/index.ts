@@ -9,14 +9,14 @@ const { version } = require("../package.json");
 
 // Create server instance
 const server = new McpServer({
-  name: "mcp-server-for-revit",
+  name: "revit-mcp-bim",
   version,
 });
 
 // Start server
 async function main() {
-  // Initialize database (sql.js is async)
-  await getDatabase();
+  // Initialize database (better-sqlite3 is synchronous)
+  getDatabase();
 
   // Register tools
   await registerTools(server);

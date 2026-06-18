@@ -1,6 +1,9 @@
 import * as net from "net";
 import { randomUUID } from "crypto";
 
+// Maximum bytes we'll buffer before assuming the connection is corrupt.
+const MAX_BUFFER_BYTES = 64 * 1024 * 1024; // 64 MB
+
 export class RevitClientConnection {
   host: string;
   port: number;
@@ -39,16 +42,52 @@ export class RevitClientConnection {
     });
   }
 
+  // Returns true if `s` contains a syntactically complete JSON object/array.
+  // Counts brackets while respecting string literals and escape sequences.
+  private isCompleteJson(s: string): boolean {
+    let depth = 0;
+    let inString = false;
+    let escape = false;
+    for (let i = 0; i < s.length; i++) {
+      const ch = s[i];
+      if (escape) { escape = false; continue; }
+      if (ch === '\\' && inString) { escape = true; continue; }
+      if (ch === '"') { inString = !inString; continue; }
+      if (inString) continue;
+      if (ch === '{' || ch === '[') { depth++; continue; }
+      if (ch === '}' || ch === ']') { if (--depth === 0) return true; }
+    }
+    return false;
+  }
+
   private processBuffer(): void {
+    // Guard against runaway buffering (e.g. a hung Revit process flooding the pipe).
+    if (this.buffer.length > MAX_BUFFER_BYTES) {
+      console.error(`RevitClientConnection: buffer exceeded ${MAX_BUFFER_BYTES} bytes — discarding`);
+      this.buffer = "";
+      this.cleanupAllPending(new Error("TCP buffer overflow: message too large or stream corrupt"));
+      return;
+    }
+
     // Process all complete newline-delimited messages.
+    // The newline is our primary framing character; bracket-counting is a
+    // secondary guard that catches the rare case where a Revit response
+    // embeds a literal \n (which standard JSON.stringify never produces,
+    // but a buggy plugin could).
     let newlineIndex: number;
     while ((newlineIndex = this.buffer.indexOf("\n")) >= 0) {
-      const line = this.buffer.substring(0, newlineIndex).trim();
+      const candidate = this.buffer.substring(0, newlineIndex).trim();
       this.buffer = this.buffer.substring(newlineIndex + 1);
 
-      if (line.length === 0) continue;
+      if (candidate.length === 0) continue;
 
-      this.handleResponse(line);
+      if (!this.isCompleteJson(candidate)) {
+        // Incomplete JSON before the newline — put it back and wait for more data.
+        this.buffer = candidate + "\n" + this.buffer;
+        break;
+      }
+
+      this.handleResponse(candidate);
     }
   }
 

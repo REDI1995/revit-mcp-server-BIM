@@ -11,7 +11,7 @@ const ADDINS_BASE = join(APPDATA, "Autodesk", "Revit", "Addins");
 const RELATIVE_PATH = join("revit_mcp_plugin", "Commands", "RevitMCPCommandSet");
 
 const SOURCE_BUILD = join(import.meta.dirname, "build", "index.js");
-const SOURCE_WASM = join(import.meta.dirname, "build", "sql-wasm.wasm");
+const SOURCE_NATIVE_MODULES = join(import.meta.dirname, "build", "node_modules");
 const SOURCE_SCHEMAS = join(import.meta.dirname, "..", "tool-schemas.txt");
 const SOURCE_JSON_SCHEMAS = join(import.meta.dirname, "..", "plugin", "tool_schemas.json");
 
@@ -26,8 +26,8 @@ for (const year of YEARS) {
 
   try {
     cpSync(SOURCE_BUILD, join(targetBuildDir, "index.js"));
-    if (existsSync(SOURCE_WASM)) {
-      cpSync(SOURCE_WASM, join(targetBuildDir, "sql-wasm.wasm"));
+    if (existsSync(SOURCE_NATIVE_MODULES)) {
+      cpSync(SOURCE_NATIVE_MODULES, join(targetBuildDir, "node_modules"), { recursive: true });
     }
     if (existsSync(SOURCE_SCHEMAS)) {
       cpSync(SOURCE_SCHEMAS, join(targetDir, "tool-schemas.txt"));

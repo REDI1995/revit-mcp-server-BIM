@@ -1,8 +1,8 @@
-[![Cover Image](./assets/cover.png?v=2)](https://github.com/LuDattilo/revit-mcp-server)
+[![Cover Image](./assets/cover.png?v=2)](https://github.com/REDI1995/revit-mcp-server-BIM)
 
-# mcp-servers-for-revit
+# revit-mcp-bim
 
-**Connect AI assistants to Autodesk Revit via the Model Context Protocol.**
+**BIM-focused fork of revit-mcp-server — OMA-style workflows, hardened for production.**
 
 ---
 
