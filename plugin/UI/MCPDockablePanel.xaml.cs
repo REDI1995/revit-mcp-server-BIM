@@ -26,7 +26,7 @@ namespace revit_mcp_plugin.UI
         private bool _isProcessing;
         private bool _lastStatus;
 
-        private static readonly SolidColorBrush BrushOnline = new SolidColorBrush(Color.FromRgb(76, 175, 80));
+        private static readonly SolidColorBrush BrushOnline = new SolidColorBrush(Color.FromRgb(147, 112, 219));
         private static readonly SolidColorBrush BrushOffline = new SolidColorBrush(Color.FromRgb(244, 67, 54));
         private static readonly SolidColorBrush BrushOfflineText = new SolidColorBrush(Color.FromRgb(136, 136, 136));
 
