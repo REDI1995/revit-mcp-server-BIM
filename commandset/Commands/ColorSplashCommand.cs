@@ -1,11 +1,11 @@
-﻿using Autodesk.Revit.UI;
+using Autodesk.Revit.UI;
 using Newtonsoft.Json.Linq;
 using RevitMCPSDK.API.Base;
 using RevitMCPCommandSet.Services;
 
 namespace RevitMCPCommandSet.Commands
 {
-    public class ColorSplashCommand : ExternalEventCommandBase
+    public class ColorSplashCommand : BimConductorCommandBase
     {
         private ColorSplashEventHandler _handler => (ColorSplashEventHandler)Handler;
 

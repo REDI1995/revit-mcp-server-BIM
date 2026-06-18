@@ -5,7 +5,7 @@ using RevitMCPSDK.API.Base;
 
 namespace RevitMCPCommandSet.Commands
 {
-    public class ExportScheduleCommand : ExternalEventCommandBase
+    public class ExportScheduleCommand : BimConductorCommandBase
     {
         private static readonly object _executionLock = new object();
         private ExportScheduleEventHandler _handler => (ExportScheduleEventHandler)Handler;

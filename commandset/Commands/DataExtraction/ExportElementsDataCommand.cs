@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace RevitMCPCommandSet.Commands.DataExtraction
 {
-    public class ExportElementsDataCommand : ExternalEventCommandBase
+    public class ExportElementsDataCommand : BimConductorCommandBase
     {
         private ExportElementsDataEventHandler _handler => (ExportElementsDataEventHandler)Handler;
 

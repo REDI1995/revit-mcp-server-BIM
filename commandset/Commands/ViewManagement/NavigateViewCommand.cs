@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace RevitMCPCommandSet.Commands.ViewManagement
 {
-    public class NavigateViewCommand : ExternalEventCommandBase
+    public class NavigateViewCommand : BimConductorCommandBase
     {
         private static readonly object _executionLock = new object();
         private NavigateViewEventHandler _handler => (NavigateViewEventHandler)Handler;

@@ -5,7 +5,7 @@ using RevitMCPSDK.API.Base;
 
 namespace RevitMCPCommandSet.Commands
 {
-    public class MatchElementPropertiesCommand : ExternalEventCommandBase
+    public class MatchElementPropertiesCommand : BimConductorCommandBase
     {
         private static readonly object _executionLock = new object();
         private MatchElementPropertiesEventHandler _handler => (MatchElementPropertiesEventHandler)Handler;

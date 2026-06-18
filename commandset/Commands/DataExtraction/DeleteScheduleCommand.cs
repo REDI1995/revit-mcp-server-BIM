@@ -6,7 +6,7 @@ using System;
 
 namespace RevitMCPCommandSet.Commands.DataExtraction
 {
-    public class DeleteScheduleCommand : ExternalEventCommandBase
+    public class DeleteScheduleCommand : BimConductorCommandBase
     {
         private static readonly object _executionLock = new object();
         private DeleteScheduleEventHandler _handler => (DeleteScheduleEventHandler)Handler;

@@ -1,11 +1,11 @@
-﻿using Autodesk.Revit.UI;
+using Autodesk.Revit.UI;
 using Newtonsoft.Json.Linq;
 using RevitMCPCommandSet.Services;
 using RevitMCPSDK.API.Base;
 
 namespace RevitMCPCommandSet.Commands
 {
-    public class TagWallsCommand : ExternalEventCommandBase
+    public class TagWallsCommand : BimConductorCommandBase
     {
         private TagWallsEventHandler _handler => (TagWallsEventHandler)Handler;
 

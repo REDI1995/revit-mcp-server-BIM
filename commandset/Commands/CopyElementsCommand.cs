@@ -5,7 +5,7 @@ using RevitMCPSDK.API.Base;
 
 namespace RevitMCPCommandSet.Commands
 {
-    public class CopyElementsCommand : ExternalEventCommandBase
+    public class CopyElementsCommand : BimConductorCommandBase
     {
         private static readonly object _executionLock = new object();
         private CopyElementsEventHandler _handler => (CopyElementsEventHandler)Handler;

@@ -1,4 +1,4 @@
-ï»¿using Autodesk.Revit.UI;
+using Autodesk.Revit.UI;
 using Newtonsoft.Json.Linq;
 using RevitMCPSDK.API.Base;
 using RevitMCPCommandSet.Models.Common;
@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace RevitMCPCommandSet.Commands
 {
-    public class AIElementFilterCommand : ExternalEventCommandBase
+    public class AIElementFilterCommand : BimConductorCommandBase
     {
         private AIElementFilterEventHandler _handler => (AIElementFilterEventHandler)Handler;
 
@@ -37,7 +37,7 @@ namespace RevitMCPCommandSet.Commands
                 // Parse parameters
                 data = parameters?["data"]?.ToObject<FilterSetting>();
                 if (data == null)
-                    throw new ArgumentNullException(nameof(data), "AI input data is null â€” expected: {\"data\": {\"filterCategory\": \"OST_Walls\", ...}}");
+                    throw new ArgumentNullException(nameof(data), "AI input data is null — expected: {\"data\": {\"filterCategory\": \"OST_Walls\", ...}}");
 
                 // Set AI filter parameters
                 _handler.SetParameters(data);
@@ -49,7 +49,7 @@ namespace RevitMCPCommandSet.Commands
                 }
                 else
                 {
-                    throw new TimeoutException("Get element info operation timed out â€” try adding a filterCategory to narrow the search scope");
+                    throw new TimeoutException("Get element info operation timed out — try adding a filterCategory to narrow the search scope");
                 }
             }
             catch (Exception ex)

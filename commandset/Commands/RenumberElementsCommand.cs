@@ -5,7 +5,7 @@ using RevitMCPSDK.API.Base;
 
 namespace RevitMCPCommandSet.Commands
 {
-    public class RenumberElementsCommand : ExternalEventCommandBase
+    public class RenumberElementsCommand : BimConductorCommandBase
     {
         private static readonly object _executionLock = new object();
         private RenumberElementsEventHandler _handler => (RenumberElementsEventHandler)Handler;

@@ -1,4 +1,4 @@
-﻿using Autodesk.Revit.UI;
+using Autodesk.Revit.UI;
 using Newtonsoft.Json.Linq;
 using RevitMCPCommandSet.Services;
 using RevitMCPSDK.API.Base;
@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace RevitMCPCommandSet.Commands.Access
 {
-    public class GetSelectedElementsCommand : ExternalEventCommandBase
+    public class GetSelectedElementsCommand : BimConductorCommandBase
     {
         private static readonly object _executionLock = new object();
         private GetSelectedElementsEventHandler _handler => (GetSelectedElementsEventHandler)Handler;

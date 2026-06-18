@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace RevitMCPCommandSet.Commands
 {
-    public class FilterByParameterValueCommand : ExternalEventCommandBase
+    public class FilterByParameterValueCommand : BimConductorCommandBase
     {
         private FilterByParameterValueEventHandler _handler => (FilterByParameterValueEventHandler)Handler;
 

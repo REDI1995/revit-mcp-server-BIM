@@ -5,7 +5,7 @@ using RevitMCPSDK.API.Base;
 
 namespace RevitMCPCommandSet.Commands.Access
 {
-    public class SetActiveWorksetCommand : ExternalEventCommandBase
+    public class SetActiveWorksetCommand : BimConductorCommandBase
     {
         private static readonly object _executionLock = new object();
         private SetActiveWorksetEventHandler _handler => (SetActiveWorksetEventHandler)Handler;

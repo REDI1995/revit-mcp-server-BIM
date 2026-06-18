@@ -8,7 +8,7 @@ namespace RevitMCPCommandSet.Commands
     /// <summary>
     /// Command to create tags for rooms in the current view
     /// </summary>
-    public class TagRoomsCommand : ExternalEventCommandBase
+    public class TagRoomsCommand : BimConductorCommandBase
     {
         private TagRoomsEventHandler _handler => (TagRoomsEventHandler)Handler;
 

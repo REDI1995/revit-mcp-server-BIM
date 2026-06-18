@@ -6,7 +6,7 @@ using System;
 
 namespace RevitMCPCommandSet.Commands.DataExtraction
 {
-    public class ListSchedulableFieldsCommand : ExternalEventCommandBase
+    public class ListSchedulableFieldsCommand : BimConductorCommandBase
     {
         private static readonly object _executionLock = new object();
         private ListSchedulableFieldsEventHandler _handler => (ListSchedulableFieldsEventHandler)Handler;

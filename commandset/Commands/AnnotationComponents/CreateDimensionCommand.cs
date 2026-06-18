@@ -1,4 +1,4 @@
-﻿// 
+// 
 //                       RevitAPI-Solutions
 // Copyright (c) Duong Tran Quang (DTDucas) (baymax.contact@gmail.com)
 // 
@@ -32,7 +32,7 @@ namespace RevitMCPCommandSet.Commands.AnnotationComponents;
 /// <summary>
 ///     Command to create dimensions
 /// </summary>
-public class CreateDimensionCommand : ExternalEventCommandBase
+public class CreateDimensionCommand : BimConductorCommandBase
 {
     /// <summary>
     ///     Constructor
