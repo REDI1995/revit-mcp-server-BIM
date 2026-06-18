@@ -16,13 +16,10 @@ await build({
   outfile: 'build/index.js',
   banner: {
     js: [
-      // ESM shims for __dirname and require() (needed by bundled code)
+      // require() shim for ESM bundle (e.g. require('../package.json')).
+      // __dirname/__filename are injected automatically by esbuild for CJS interop.
       'import { createRequire as __createRequire } from "module";',
-      'import { fileURLToPath as __fileURLToPath } from "url";',
-      'import { dirname as __dirname_fn } from "path";',
       'const require = __createRequire(import.meta.url);',
-      'const __filename = __fileURLToPath(import.meta.url);',
-      'const __dirname = __dirname_fn(__filename);',
     ].join('\n'),
   },
   // Exclude node built-ins from bundle
