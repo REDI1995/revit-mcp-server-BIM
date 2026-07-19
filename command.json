@@ -199,6 +199,11 @@
       "assemblyPath": "RevitMCPCommandSet/{VERSION}/RevitMCPCommandSet.dll"
     },
     {
+      "commandName": "create_type_container",
+      "description": "Create a 'container' level below the model with one sample of each wall type, a section across the row, and a tag on each",
+      "assemblyPath": "RevitMCPCommandSet/{VERSION}/RevitMCPCommandSet.dll"
+    },
+    {
       "commandName": "get_schedule_data",
       "description": "Read schedule data or list all schedules in the project",
       "assemblyPath": "RevitMCPCommandSet/{VERSION}/RevitMCPCommandSet.dll"

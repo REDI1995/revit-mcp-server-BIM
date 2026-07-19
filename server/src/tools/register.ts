@@ -45,6 +45,7 @@ import * as CreateSheetListSchedule from "./create_sheet_list_schedule.js";
 import * as CreateStructuralFramingSystem from "./create_structural_framing_system.js";
 import * as CreateSurfaceBasedElement from "./create_surface_based_element.js";
 import * as CreateTextNote from "./create_text_note.js";
+import * as CreateTypeContainer from "./create_type_container.js";
 import * as CreateWorkset from "./create_workset.js";
 import * as CreateView from "./create_view.js";
 import * as CreateViewTemplate from "./create_view_template.js";
@@ -69,6 +70,7 @@ import * as ExportToExcel from "./export_to_excel.js";
 import * as FilterByParameterValue from "./filter_by_parameter_value.js";
 import * as FindUndimensionedElements from "./find_undimensioned_elements.js";
 import * as FindUntaggedElements from "./find_untagged_elements.js";
+import * as GenerateTypeSchedules from "./generate_type_schedules.js";
 import * as GetAvailableFamilyTypes from "./get_available_family_types.js";
 import * as GetCompoundStructure from "./get_compound_structure.js";
 import * as GetElementsByWorkset from "./get_elements_by_workset.js";
@@ -186,6 +188,7 @@ export async function registerTools(server: McpServer) {
     { name: "create_structural_framing_system", module: CreateStructuralFramingSystem },
     { name: "create_surface_based_element", module: CreateSurfaceBasedElement },
     { name: "create_text_note", module: CreateTextNote },
+    { name: "create_type_container", module: CreateTypeContainer },
     { name: "create_workset", module: CreateWorkset },
     { name: "create_view", module: CreateView },
     { name: "create_view_template", module: CreateViewTemplate },
@@ -210,6 +213,7 @@ export async function registerTools(server: McpServer) {
     { name: "filter_by_parameter_value", module: FilterByParameterValue },
     { name: "find_undimensioned_elements", module: FindUndimensionedElements },
     { name: "find_untagged_elements", module: FindUntaggedElements },
+    { name: "generate_type_schedules", module: GenerateTypeSchedules },
     { name: "get_available_family_types", module: GetAvailableFamilyTypes },
     { name: "get_compound_structure", module: GetCompoundStructure },
     { name: "get_elements_by_workset", module: GetElementsByWorkset },
