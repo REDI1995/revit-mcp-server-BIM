@@ -2693,6 +2693,51 @@
     }
   },
   {
+    "name": "create_type_container",
+    "description": "Create a dedicated level ('container') far below the model, place one sample of each basic wall type on it, cut a section across the row, and tag every sample. A documentation aid that pairs with generate_type_schedules. Dimensions in mm.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "sampleLengthMm": {
+          "type": "number",
+          "default": 500,
+          "description": "Horizontal run of each sample stub (along Y). Default 500."
+        },
+        "sampleHeightMm": {
+          "type": "number",
+          "default": 1000,
+          "description": "Height of each sample, from the container level. Default 1000."
+        },
+        "gapMm": {
+          "type": "number",
+          "default": 500,
+          "description": "Clear gap between consecutive samples (along X). Default 500."
+        },
+        "levelDropMm": {
+          "type": "number",
+          "default": 10000,
+          "description": "How far below the lowest existing level to place the container level. Default 10000."
+        },
+        "levelName": {
+          "type": "string",
+          "default": "container",
+          "description": "Name of the container level. Default 'container'."
+        },
+        "tagTypeName": {
+          "type": "string",
+          "description": "Wall tag type/family to use (matched by type name, family name, or 'Family : Type'). Default: first available wall tag."
+        },
+        "sectionName": {
+          "type": "string",
+          "default": "Abaco - Sezione Tipi",
+          "description": "Legacy — one section per wall type is now created, named after the type. Kept for back-compat."
+        }
+      },
+      "additionalProperties": false,
+      "$schema": "http://json-schema.org/draft-07/schema#"
+    }
+  },
+  {
     "name": "create_view",
     "description": "Create floor plan, ceiling plan, section, elevation, or 3D views.",
     "input_schema": {
@@ -3583,6 +3628,34 @@
         "limit": {
           "type": "number",
           "description": "Maximum number of untagged elements to return (default: 500)"
+        }
+      },
+      "additionalProperties": false,
+      "$schema": "http://json-schema.org/draft-07/schema#"
+    }
+  },
+  {
+    "name": "generate_type_schedules",
+    "description": "Abaco: generate a type-summary schedule for each given category (default walls, floors, ceilings), listing every unique type actually used with its key parameters and an instance count. Language-safe: works on Italian or English Revit. One call produces one schedule per category.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "categories": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "BuiltInCategory names to schedule. Default: OST_Walls, OST_Floors, OST_Ceilings."
+        },
+        "namePrefix": {
+          "type": "string",
+          "default": "Abaco",
+          "description": "Prefix for each schedule name, e.g. 'Abaco - Muri'."
+        },
+        "itemized": {
+          "type": "boolean",
+          "default": false,
+          "description": "If false (default), rows collapse so each unique type appears once. If true, every instance is a row."
         }
       },
       "additionalProperties": false,

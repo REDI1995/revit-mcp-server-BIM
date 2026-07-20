@@ -40,6 +40,9 @@ namespace RevitMCPCommandSet.Commands
 
                     var sectionName = parameters["sectionName"]?.ToObject<string>();
                     if (!string.IsNullOrEmpty(sectionName)) opts.SectionName = sectionName;
+
+                    var tagTypeName = parameters["tagTypeName"]?.ToObject<string>();
+                    if (!string.IsNullOrEmpty(tagTypeName)) opts.TagTypeName = tagTypeName;
                 }
 
                 _handler.SetParameters(opts);
